@@ -1,0 +1,29 @@
+3D_gimbal 编译运行说明（Linux）
+
+1) 安装依赖（Ubuntu / Debian）
+sudo apt update
+sudo apt install build-essential cmake libopencv-dev
+
+2) 在仓库根目录配置并编译
+cmake -S . -B build-local -DCMAKE_BUILD_TYPE=Release
+cmake --build build-local --target vision_gimbal -j
+
+3) 运行主程序
+./build-local/vision_gimbal
+
+4) 运行前注意
+
+- 伺服输出默认开启，开火默认关闭；按 F 切换开火，调试步骤见 README.md。
+- 退出按键：Q 或 Esc。
+- 常用按键：C（切换目标颜色）、F（开关开火）。
+- L：强制接受当前拟合结果，使用条件和安全注意事项见 README.md。
+
+5) 相机标定程序（独立工程）
+参考 camera_calibration/README.md
+
+在仓库根目录示例：
+cmake -S ./camera_calibration -B ./camera_calibration/build
+cmake --build ./camera_calibration/build --config Release
+
+说明：
+如果相机打不开，请检查 /dev/video0 是否存在，以及当前用户是否有设备访问权限。
